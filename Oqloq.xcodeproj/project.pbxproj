@@ -20,6 +20,7 @@
 		12EBB302270DE4330009579C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12EBB305270DE4330009579C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		12EBB307270DE4330009579C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12EBB30E270DF1640009579C /* Alata-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Alata-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +57,7 @@
 				12EBB300270DE4320009579C /* ContentView.swift */,
 				12EBB302270DE4330009579C /* Assets.xcassets */,
 				12EBB307270DE4330009579C /* Info.plist */,
+				12EBB30F270DF1640009579C /* Alata */,
 				12EBB304270DE4330009579C /* Preview Content */,
 			);
 			path = Oqloq;
@@ -68,6 +70,15 @@
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
+		};
+		12EBB30F270DF1640009579C /* Alata */ = {
+			isa = PBXGroup;
+			children = (
+				12EBB30E270DF1640009579C /* Alata-Regular.ttf */,
+			);
+			name = Alata;
+			path = /Users/fatihsaglam/Desktop/swiftUI/Oqloq/Oqloq/Alata;
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
