@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12300A462710CFF5007EC5AC /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12300A452710CFF5007EC5AC /* Clock.swift */; };
 		12EBB2FF270DE4320009579C /* OqloqApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EBB2FE270DE4320009579C /* OqloqApp.swift */; };
 		12EBB301270DE4320009579C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EBB300270DE4320009579C /* ContentView.swift */; };
 		12EBB303270DE4330009579C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EBB302270DE4330009579C /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12300A452710CFF5007EC5AC /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		12EBB2FB270DE4320009579C /* Oqloq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oqloq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EBB2FE270DE4320009579C /* OqloqApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OqloqApp.swift; sourceTree = "<group>"; };
 		12EBB300270DE4320009579C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				12EBB2FE270DE4320009579C /* OqloqApp.swift */,
 				12EBB300270DE4320009579C /* ContentView.swift */,
+				12300A452710CFF5007EC5AC /* Clock.swift */,
 				12EBB302270DE4330009579C /* Assets.xcassets */,
 				12EBB307270DE4330009579C /* Info.plist */,
 				12EBB30F270DF1640009579C /* Alata */,
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12300A462710CFF5007EC5AC /* Clock.swift in Sources */,
 				12EBB301270DE4320009579C /* ContentView.swift in Sources */,
 				12EBB2FF270DE4320009579C /* OqloqApp.swift in Sources */,
 			);
