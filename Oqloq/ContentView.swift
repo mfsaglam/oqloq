@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var currentTime = Time(hour: 0)
-    @State var timePublisher = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var timePublisher = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)), Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
@@ -22,8 +22,8 @@ struct ContentView: View {
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: Date())
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                withAnimation(Animation.interactiveSpring(response: 1, dampingFraction: 1, blendDuration: 1)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                withAnimation(Animation.interactiveSpring(response: 1, dampingFraction: 1.5, blendDuration: 0)) {
                     self.currentTime = Time(hour: hour)
                 }
             }
