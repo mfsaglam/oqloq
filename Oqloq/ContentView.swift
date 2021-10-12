@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var timePublisher = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)), Color(#colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
+            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0, green: 0.5959428549, blue: 0.5991661549, alpha: 1)), Color(#colorLiteral(red: 0.02366073802, green: 0.4557065964, blue: 0.4581259489, alpha: 1))]), startPoint: .leading, endPoint: .trailing)
                 .ignoresSafeArea()
             VStack {
                 Clock(rotation: $currentTime)
@@ -45,9 +45,4 @@ struct ContentView_Previews: PreviewProvider {
             
     }
 }
-
-struct Time {
-    var hour: Int
-}
-
 
