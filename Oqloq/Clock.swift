@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct Clock: View {
-    var timelines: [Timeline] = [
-        Timeline(startPoint: 0, endpoint: 0.3, color: .red, lineWidth: 3),
-        Timeline(startPoint: 0.3, endpoint: 0.9, color: .blue, lineWidth: 3),
-        Timeline(startPoint: 0.9, endpoint: 1, color: .red, lineWidth: 3)
-    ]
+    var timelines: [Timeline] = []
     @Binding var rotation: Time
     @State var show: Bool = false
     @State var showOptions = false
@@ -99,16 +95,72 @@ struct ColoredCircle: View {
 }
 
 struct Timeline: View {
-    var startPoint: CGFloat
-    var endpoint: CGFloat
-    var color: Color
+    @State var editPositon = false
+    @State var editLength = false
+    @State var angle: CGFloat = 0
+    @State var length : CGFloat = 400
+    @State var startPoint: CGFloat
+    @State var color: Color
+    @State var endpoint: CGFloat
+    
     var lineWidth: CGFloat
     var body: some View {
         Circle()
             .trim(from: CGFloat(startPoint), to: endpoint)
-            .stroke(color.opacity(0.8), lineWidth: lineWidth)
+            .stroke(color.opacity(0.8),
+                    style: StrokeStyle(lineWidth: editPositon ? 15 : editLength ? 15 : lineWidth, lineCap: .round, lineJoin: .round))
             .frame(width: 380, height: 380)
-            .rotationEffect(Angle(degrees: -90))
+            .rotationEffect(.degrees(Double(angle)))
+//            .onLongPressGesture {
+//                withAnimation(.interactiveSpring()) {
+//                    showOptions.toggle()
+//                }
+//            }
+            .contextMenu {
+                Button {
+                    withAnimation(.easeInOut(duration: 1)) {
+                        startPoint = endpoint
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash.fill")
+                }
+                Button {
+                    withAnimation(.easeInOut(duration: 1)) {
+                        editPositon = true
+                    }
+                } label: {
+                    Label("Edit position",systemImage: "gear")
+                }
+                Button {
+                    withAnimation(.easeInOut(duration: 1)) {
+                        editLength = true
+                    }
+                } label: {
+                    Label("Edit length",systemImage: "scribble")
+                }
+                ColorPicker("Change color",
+                            selection: $color
+                )
+            }
+            .gesture(DragGesture()
+                        .onChanged{ value in
+                            if editPositon {
+                                self.angle = atan2(value.location.x - self.length / 2, self.length / 2 - value.location.y) * 180 / .pi
+                                if (self.angle < 0) { self.angle += 360 }
+                            } else if editLength {
+                                withAnimation(.interactiveSpring()) {
+                                    self.endpoint = value.location.y
+                                }
+                            }
+                
+                        }
+            )
+            .onTapGesture {
+                withAnimation(.spring(response: 1, dampingFraction: 1, blendDuration: 0.5)) {
+                    editPositon = false
+                    editLength = false
+                }
+            }
     }
 }
 
@@ -118,6 +170,13 @@ struct Time {
 
 struct Clock_Previews: PreviewProvider {
     static var previews: some View {
-        Clock(rotation: .constant(Time(hour: 240)), showOptions: true)
+        Clock(
+            timelines : [
+                Timeline(startPoint: 0, color: .red, endpoint: 0.3, lineWidth: 3),
+                Timeline(startPoint: 0.3, color: .blue, endpoint: 0.9, lineWidth: 3),
+                Timeline(startPoint: 0.9, color: .red, endpoint: 1, lineWidth: 3)
+            ],
+            rotation: .constant(Time(hour: 240)),
+            showOptions: true)
     }
 }
