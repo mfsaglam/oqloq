@@ -8,34 +8,39 @@
 import SwiftUI
 
 struct Clock: View {
-    var timelines: [Timeline] = []
-    @Binding var rotation: Time
+//    var rotation: ClockEngine<Color>.Timeline.rotation
+//    @Binding var timelines: Array<TimelineView>
+    
     @State var show: Bool = false
     @State var showOptions = false
-    
+        
     var body: some View {
         let mainColor = LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))]), startPoint: .bottom, endPoint: .top)
         let indicatorColor = Color.gray
         return VStack(spacing: 0) {
             //hang
-            Rectangle()
+            Hanger()
                 .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                 .overlay(
                     ZStack {
                         Circle()
-                            .fill(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)).opacity(0.3))
+                            .fill(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)).opacity(0.25))
                             .padding(4)
                             .shadow(color: .black.opacity(0.8), radius: 20, x: 20, y: 0)
+                        Circle()
+                            .strokeBorder(lineWidth: 2)
+                            .foregroundColor(.white)
+                            .opacity(0.2)
+                            .padding(4)
                         Text("oqloq")
                             .foregroundColor(.white)
-                            .font(.custom("Alata-Regular", size: 19))
-                            .opacity(0.2)
+                            .font(.custom("Alata-Regular", size: 17))
+                            .opacity(0.1)
                     }
+                        .offset(y: -5)
                 )
-                
-                .frame(width: 65, height: 60)
-                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                .offset(y: 30)
+                .frame(width: 60, height: 75)
+                .offset(y: 40)
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
             //Hanger
             Rectangle()
@@ -52,7 +57,6 @@ struct Clock: View {
                     .frame(width: 380, height: 380)
 //                    .blur(radius: 100)
                     .blendMode(.color)
-                ColoredCircle(timelines: timelines)
                 //indicator
                 Circle()
                     .trim(from: 0.0, to: 0.002)
@@ -60,11 +64,13 @@ struct Clock: View {
                     .frame(width: 280, height: 280)
                     .rotationEffect(Angle(degrees: -90))
                     // indicator rotation effect
-                    .rotationEffect(Angle(degrees: Double(rotation.hour) * 15))
+//                    .rotationEffect(Angle(degrees: Double(rotation.hour) * 15))
             }
-            .onLongPressGesture {
-                withAnimation(.spring(response: 1, dampingFraction: 1, blendDuration: 0)) {
-                    showOptions = true
+            .contextMenu {
+                Button {
+                    //add timeline
+                } label: {
+                    Label("Add timeline", systemImage: "plus")
                 }
             }
         }
@@ -77,40 +83,39 @@ struct Clock: View {
     }
 }
 
-
 struct ColoredCircle: View {
-    var timelines: [Timeline]
+    var amountOfTimelines: Int
+    var angle: Float = 0
+    var color: Color = Color.white
+    var startPoint: Float = 0
+    var endPoint: Float = 0.3
+    
     var body: some View {
         ZStack {
             Circle()
                 .fill(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing))
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
                 .frame(width: 340, height: 340)
-            ForEach(timelines.indices) { item in
-                timelines[item]
+            ForEach(0..<amountOfTimelines) { index in
+                TimelineView(timeline: ClockEngine<Color>.Timeline(angle: angle, color: color, startPoint: startPoint, endpoint: endPoint))
             }
         }
-            
     }
 }
 
-struct Timeline: View {
+struct TimelineView: View {
+    var timeline: ClockEngine<Color>.Timeline
     @State var editPositon = false
     @State var editLength = false
-    @State var angle: CGFloat = 0
-    @State var length : CGFloat = 400
-    @State var startPoint: CGFloat
-    @State var color: Color
-    @State var endpoint: CGFloat
     
-    var lineWidth: CGFloat
+    var lineWidth: CGFloat = 3
     var body: some View {
         Circle()
-            .trim(from: CGFloat(startPoint), to: endpoint)
-            .stroke(color.opacity(0.8),
+            .trim(from: CGFloat(timeline.startPoint), to: CGFloat(timeline.endpoint))
+            .stroke(timeline.color.opacity(0.8),
                     style: StrokeStyle(lineWidth: editPositon ? 15 : editLength ? 15 : lineWidth, lineCap: .round, lineJoin: .round))
             .frame(width: 380, height: 380)
-            .rotationEffect(.degrees(Double(angle)))
+            .rotationEffect(.degrees(Double(timeline.angle)))
 //            .onLongPressGesture {
 //                withAnimation(.interactiveSpring()) {
 //                    showOptions.toggle()
@@ -118,65 +123,55 @@ struct Timeline: View {
 //            }
             .contextMenu {
                 Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        startPoint = endpoint
-                    }
+                    //delete action
                 } label: {
                     Label("Delete", systemImage: "trash.fill")
                 }
                 Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        editPositon = true
-                    }
+                    //edit Position
                 } label: {
                     Label("Edit position",systemImage: "gear")
                 }
                 Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        editLength = true
-                    }
+                    //edit length
                 } label: {
                     Label("Edit length",systemImage: "scribble")
                 }
-                ColorPicker("Change color",
-                            selection: $color
-                )
+//                ColorPicker("Change color",
+//                            selection: timeline.color
+//                ) //only buttons are working here
             }
-            .gesture(DragGesture()
-                        .onChanged{ value in
-                            if editPositon {
-                                self.angle = atan2(value.location.x - self.length / 2, self.length / 2 - value.location.y) * 180 / .pi
-                                if (self.angle < 0) { self.angle += 360 }
-                            } else if editLength {
-                                withAnimation(.interactiveSpring()) {
-                                    self.endpoint = value.location.y
-                                }
-                            }
-                
-                        }
-            )
-            .onTapGesture {
-                withAnimation(.spring(response: 1, dampingFraction: 1, blendDuration: 0.5)) {
-                    editPositon = false
-                    editLength = false
-                }
-            }
+//            .gesture(DragGesture()
+//                        .onChanged{ value in
+//                            if editPositon {
+//                                self.angle = atan2(value.location.x - self.length / 2, self.length / 2 - value.location.y) * 180 / .pi
+//                                if (self.angle < 0) { self.angle += 360 }
+//                            } else if editLength {
+//                                withAnimation(.interactiveSpring()) {
+//                                    self.endpoint = value.location.y
+//                                }
+//                            }
+//
+//                        }
+//            )
+//            .onTapGesture {
+//                withAnimation(.spring(response: 1, dampingFraction: 1, blendDuration: 0.5)) {
+//                    editPositon = false
+//                    editLength = false
+//                }
+//            }
     }
 }
 
-struct Time {
-    var hour: Int
-}
-
-struct Clock_Previews: PreviewProvider {
-    static var previews: some View {
-        Clock(
-            timelines : [
-                Timeline(startPoint: 0, color: .red, endpoint: 0.3, lineWidth: 3),
-                Timeline(startPoint: 0.3, color: .blue, endpoint: 0.9, lineWidth: 3),
-                Timeline(startPoint: 0.9, color: .red, endpoint: 1, lineWidth: 3)
-            ],
-            rotation: .constant(Time(hour: 240)),
-            showOptions: true)
-    }
-}
+//struct Clock_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Clock(
+//            timelines : [
+//                Timeline(startPoint: 0, color: .red, endpoint: 0.3, lineWidth: 3),
+//                Timeline(startPoint: 0.3, color: .blue, endpoint: 0.9, lineWidth: 3),
+//                Timeline(startPoint: 0.9, color: .red, endpoint: 1, lineWidth: 3)
+//            ],
+//            rotation: .constant(Time(hour: 240)),
+//            showOptions: true)
+//    }
+//}
