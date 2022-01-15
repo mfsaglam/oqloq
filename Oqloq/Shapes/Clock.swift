@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Clock: View {
-//    var rotation: ClockEngine<Color>.Timeline.rotation
+//    var rotation: ClockEngine.Timeline.rotation
 //    @Binding var timelines: Array<TimelineView>
     
     @State var show: Bool = false
@@ -97,14 +97,15 @@ struct ColoredCircle: View {
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
                 .frame(width: 340, height: 340)
             ForEach(0..<amountOfTimelines) { index in
-                TimelineView(timeline: ClockEngine<Color>.Timeline(angle: angle, color: color, startPoint: startPoint, endpoint: endPoint))
+                //TODO: - Fix color here
+                Timeline(timeline: ClockEngine.Timeline(angle: angle, color: "ffffff", startPoint: startPoint, endpoint: endPoint))
             }
         }
     }
 }
 
-struct TimelineView: View {
-    var timeline: ClockEngine<Color>.Timeline
+struct Timeline: View {
+    var timeline: ClockEngine.Timeline
     @State var editPositon = false
     @State var editLength = false
     
@@ -112,7 +113,8 @@ struct TimelineView: View {
     var body: some View {
         Circle()
             .trim(from: CGFloat(timeline.startPoint), to: CGFloat(timeline.endpoint))
-            .stroke(timeline.color.opacity(0.8),
+        //TODO: - Fix Color here
+            .stroke(Color(hex: timeline.color).opacity(0.8),
                     style: StrokeStyle(lineWidth: editPositon ? 15 : editLength ? 15 : lineWidth, lineCap: .round, lineJoin: .round))
             .frame(width: 380, height: 380)
             .rotationEffect(.degrees(Double(timeline.angle)))

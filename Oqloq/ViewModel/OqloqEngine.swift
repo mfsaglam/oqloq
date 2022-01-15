@@ -10,13 +10,13 @@ import Combine
 
 class OqloqEngine: ObservableObject {
         
-    @Published private var model: ClockEngine<Color> = ClockEngine()
+    @Published private var model: ClockEngine = ClockEngine()
     
-    var timelines: Array<ClockEngine<Color>.Timeline> = []
+    var timelines: Array<ClockEngine.Timeline> = []
     
     init() {
         timelines.append(contentsOf: [
-            ClockEngine<Color>.Timeline(angle: 0, color: Color.green, startPoint: 0.0, endpoint: 0.3)
+            ClockEngine.Timeline(angle: 0, color: "4CD964", startPoint: 0.0, endpoint: 0.3)
         ])
     }
     
@@ -28,7 +28,7 @@ class OqloqEngine: ObservableObject {
         model.timePublisher
     }
     
-    func addTimeline(color: Color) {
+    func addTimeline(color: String) {
         timelines.append(ClockEngine.Timeline(angle: 0, color: color, startPoint: 0.0, endpoint: 0.3))
     }
 }

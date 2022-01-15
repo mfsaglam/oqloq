@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct ClockEngine<TimelineColor> {
+struct ClockEngine {
     
     private(set) var currentHour: Time
     private(set) var timePublisher: Publishers.Autoconnect<Timer.TimerPublisher>
@@ -23,7 +23,7 @@ struct ClockEngine<TimelineColor> {
     struct Timeline {
         var rotation: Float = 0
         var angle: Float
-        var color: TimelineColor
+        var color: String
         var startPoint: Float
         var endpoint: Float
     }
