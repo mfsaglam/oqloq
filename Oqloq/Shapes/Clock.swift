@@ -16,9 +16,9 @@ struct Clock: View {
         
     var body: some View {
         let mainColor = LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))]), startPoint: .bottom, endPoint: .top)
-        let indicatorColor = Color.gray
+        let indicatorColor = Color.white
         return VStack(spacing: 0) {
-            //hang
+//MARK: - Hanger
             Hanger()
                 .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                 .overlay(
@@ -49,7 +49,7 @@ struct Clock: View {
                 .clipShape(RoundedRectangle(cornerRadius: 5,style: .continuous))
                 .offset(y: 30)
                 .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
-            
+//MARK: - Clock Body
             ZStack {
                 //back
                 Circle()
@@ -57,6 +57,11 @@ struct Clock: View {
                     .frame(width: 380, height: 380)
 //                    .blur(radius: 100)
                     .blendMode(.color)
+                //main body
+                Circle()
+                    .fill(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing))
+                    .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
+                    .frame(width: 340, height: 340)
                 //indicator
                 Circle()
                     .trim(from: 0.0, to: 0.002)
@@ -65,6 +70,7 @@ struct Clock: View {
                     .rotationEffect(Angle(degrees: -90))
                     // indicator rotation effect
 //                    .rotationEffect(Angle(degrees: Double(rotation.hour) * 15))
+                ColoredCircle(amountOfTimelines: 1)
             }
             .contextMenu {
                 Button {
@@ -92,10 +98,7 @@ struct ColoredCircle: View {
     
     var body: some View {
         ZStack {
-            Circle()
-                .fill(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)), Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))]), startPoint: .leading, endPoint: .trailing))
-                .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
-                .frame(width: 340, height: 340)
+            
             ForEach(0..<amountOfTimelines) { index in
                 //TODO: - Fix color here
                 Timeline(timeline: ClockEngine.Timeline(angle: angle, color: "ffffff", startPoint: startPoint, endpoint: endPoint))
@@ -165,15 +168,10 @@ struct Timeline: View {
     }
 }
 
-//struct Clock_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Clock(
-//            timelines : [
-//                Timeline(startPoint: 0, color: .red, endpoint: 0.3, lineWidth: 3),
-//                Timeline(startPoint: 0.3, color: .blue, endpoint: 0.9, lineWidth: 3),
-//                Timeline(startPoint: 0.9, color: .red, endpoint: 1, lineWidth: 3)
-//            ],
-//            rotation: .constant(Time(hour: 240)),
-//            showOptions: true)
-//    }
-//}
+struct Clock_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Clock()
+        }
+    }
+}

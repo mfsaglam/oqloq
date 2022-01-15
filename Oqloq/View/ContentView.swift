@@ -17,7 +17,6 @@ struct ContentView: View {
                 .ignoresSafeArea()
 //            Clock(rotation: engine.currentHour)
             Clock()
-            ColoredCircle(amountOfTimelines: engine.timelines.count)
         }
         .onAppear {
 //            let calendar = Calendar.current
