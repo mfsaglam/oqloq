@@ -7,19 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12300A462710CFF5007EC5AC /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12300A452710CFF5007EC5AC /* Clock.swift */; };
+		12300A462710CFF5007EC5AC /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12300A452710CFF5007EC5AC /* ClockView.swift */; };
+		127C308727975947008CA0AE /* TimelineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C308627975947008CA0AE /* TimelineEngine.swift */; };
+		127C3089279759EA008CA0AE /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C3088279759EA008CA0AE /* Timeline.swift */; };
+		127C308B27976131008CA0AE /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C308A27976131008CA0AE /* Modifiers.swift */; };
 		12E1A383279352CE005ADC36 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E1A382279352CE005ADC36 /* Color+Extension.swift */; };
 		12EBB2FF270DE4320009579C /* OqloqApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EBB2FE270DE4320009579C /* OqloqApp.swift */; };
 		12EBB301270DE4320009579C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EBB300270DE4320009579C /* ContentView.swift */; };
 		12EBB303270DE4330009579C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EBB302270DE4330009579C /* Assets.xcassets */; };
 		12EBB306270DE4330009579C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EBB305270DE4330009579C /* Preview Assets.xcassets */; };
 		12FE8CE5271EE6430050054D /* Hanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE8CE4271EE6430050054D /* Hanger.swift */; };
-		12FE8CE7271FFA490050054D /* ClockEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE8CE6271FFA490050054D /* ClockEngine.swift */; };
+		12FE8CE7271FFA490050054D /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE8CE6271FFA490050054D /* Clock.swift */; };
 		12FE8CEB271FFCC20050054D /* OqloqEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE8CEA271FFCC20050054D /* OqloqEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		12300A452710CFF5007EC5AC /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		12300A452710CFF5007EC5AC /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		127C308627975947008CA0AE /* TimelineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEngine.swift; sourceTree = "<group>"; };
+		127C3088279759EA008CA0AE /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
+		127C308A27976131008CA0AE /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		12E1A382279352CE005ADC36 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		12EBB2FB270DE4320009579C /* Oqloq.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oqloq.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EBB2FE270DE4320009579C /* OqloqApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OqloqApp.swift; sourceTree = "<group>"; };
@@ -29,7 +35,7 @@
 		12EBB307270DE4330009579C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12EBB30E270DF1640009579C /* Alata-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Alata-Regular.ttf"; sourceTree = "<group>"; };
 		12FE8CE4271EE6430050054D /* Hanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hanger.swift; sourceTree = "<group>"; };
-		12FE8CE6271FFA490050054D /* ClockEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockEngine.swift; sourceTree = "<group>"; };
+		12FE8CE6271FFA490050054D /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		12FE8CEA271FFCC20050054D /* OqloqEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OqloqEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,7 +53,6 @@
 		125799A82720441600427CB8 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
-				12300A452710CFF5007EC5AC /* Clock.swift */,
 				12FE8CE4271EE6430050054D /* Hanger.swift */,
 			);
 			path = Shapes;
@@ -57,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				12E1A382279352CE005ADC36 /* Color+Extension.swift */,
+				127C308A27976131008CA0AE /* Modifiers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -115,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				12EBB300270DE4320009579C /* ContentView.swift */,
+				12300A452710CFF5007EC5AC /* ClockView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,7 +129,8 @@
 		12FE8CE9271FFC900050054D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				12FE8CE6271FFA490050054D /* ClockEngine.swift */,
+				12FE8CE6271FFA490050054D /* Clock.swift */,
+				127C3088279759EA008CA0AE /* Timeline.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -131,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				12FE8CEA271FFCC20050054D /* OqloqEngine.swift */,
+				127C308627975947008CA0AE /* TimelineEngine.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -204,11 +213,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12FE8CE7271FFA490050054D /* ClockEngine.swift in Sources */,
+				127C3089279759EA008CA0AE /* Timeline.swift in Sources */,
+				12FE8CE7271FFA490050054D /* Clock.swift in Sources */,
 				12E1A383279352CE005ADC36 /* Color+Extension.swift in Sources */,
 				12FE8CE5271EE6430050054D /* Hanger.swift in Sources */,
+				127C308B27976131008CA0AE /* Modifiers.swift in Sources */,
 				12FE8CEB271FFCC20050054D /* OqloqEngine.swift in Sources */,
-				12300A462710CFF5007EC5AC /* Clock.swift in Sources */,
+				127C308727975947008CA0AE /* TimelineEngine.swift in Sources */,
+				12300A462710CFF5007EC5AC /* ClockView.swift in Sources */,
 				12EBB301270DE4320009579C /* ContentView.swift in Sources */,
 				12EBB2FF270DE4320009579C /* OqloqApp.swift in Sources */,
 			);

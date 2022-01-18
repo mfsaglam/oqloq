@@ -7,48 +7,29 @@
 
 import SwiftUI
 
-struct Clock: View {
-//    var rotation: ClockEngine.Timeline.rotation
-//    @Binding var timelines: Array<TimelineView>
+struct ClockView: View {
+//    var rotation: Timeline.rotation
+//    @Binding var timelines: Array<Timelines>
+    @StateObject var clockEngine = OqloqEngine()
+    @StateObject var timelineEngine = TimelineEngine()
     
     @State var show: Bool = false
     @State var showOptions = false
         
     var body: some View {
+//MARK: - Constants
         let mainColor = LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))]), startPoint: .bottom, endPoint: .top)
         let indicatorColor = Color.white
+//MARK: - View Itself
         return VStack(spacing: 0) {
 //MARK: - Hanger
             Hanger()
                 .fill(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                .overlay(
-                    ZStack {
-                        Circle()
-                            .fill(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)).opacity(0.25))
-                            .padding(4)
-                            .shadow(color: .black.opacity(0.8), radius: 20, x: 20, y: 0)
-                        Circle()
-                            .strokeBorder(lineWidth: 2)
-                            .foregroundColor(.white)
-                            .opacity(0.2)
-                            .padding(4)
-                        Text("oqloq")
-                            .foregroundColor(.white)
-                            .font(.custom("Alata-Regular", size: 17))
-                            .opacity(0.1)
-                    }
-                        .offset(y: -5)
-                )
-                .frame(width: 60, height: 75)
-                .offset(y: 40)
-                .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
+                .modifier(HangerModifier())
             //Hanger
             Rectangle()
                 .fill(mainColor)
-                .frame(width: 55, height: 110)
-                .clipShape(RoundedRectangle(cornerRadius: 5,style: .continuous))
-                .offset(y: 30)
-                .shadow(color: .black.opacity(0.25), radius: 20, x: 30, y: 0)
+                .modifier(RectangleModifier())
 //MARK: - Clock Body
             ZStack {
                 //back
@@ -70,7 +51,7 @@ struct Clock: View {
                     .rotationEffect(Angle(degrees: -90))
                     // indicator rotation effect
 //                    .rotationEffect(Angle(degrees: Double(rotation.hour) * 15))
-                ColoredCircle(amountOfTimelines: 1)
+                ColoredCircle(timelines: timelineEngine.timelines)
             }
             .contextMenu {
                 Button {
@@ -86,41 +67,35 @@ struct Clock: View {
                 show = true
             }
         }
+        // use .onReceive(engine.timePublisher) to make indicator move
     }
 }
 
 struct ColoredCircle: View {
-    var amountOfTimelines: Int
-    var angle: Float = 0
-    var color: Color = Color.white
-    var startPoint: Float = 0
-    var endPoint: Float = 0.3
+    var timelines: [Timeline]
     
     var body: some View {
         ZStack {
-            
-            ForEach(0..<amountOfTimelines) { index in
-                //TODO: - Fix color here
-                Timeline(timeline: ClockEngine.Timeline(angle: angle, color: "ffffff", startPoint: startPoint, endpoint: endPoint))
+            ForEach(timelines) { timeline in
+                TimelineView(timeline: timeline)
             }
         }
     }
 }
 
-struct Timeline: View {
-    var timeline: ClockEngine.Timeline
+struct TimelineView: View {
+    var timeline: Timeline
     @State var editPositon = false
     @State var editLength = false
     
     var lineWidth: CGFloat = 3
     var body: some View {
         Circle()
-            .trim(from: CGFloat(timeline.startPoint), to: CGFloat(timeline.endpoint))
-        //TODO: - Fix Color here
+            .trim(from: CGFloat(timeline.startPosition), to: CGFloat(timeline.endPosition))
             .stroke(Color(hex: timeline.color).opacity(0.8),
                     style: StrokeStyle(lineWidth: editPositon ? 15 : editLength ? 15 : lineWidth, lineCap: .round, lineJoin: .round))
             .frame(width: 380, height: 380)
-            .rotationEffect(.degrees(Double(timeline.angle)))
+            .rotationEffect(.degrees(Double(timeline.startPosition)))
 //            .onLongPressGesture {
 //                withAnimation(.interactiveSpring()) {
 //                    showOptions.toggle()
@@ -171,7 +146,7 @@ struct Timeline: View {
 struct Clock_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Clock()
+            ClockView()
         }
     }
 }

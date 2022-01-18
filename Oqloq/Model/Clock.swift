@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct ClockEngine {
+struct Clock {
     
     private(set) var currentHour: Time
     private(set) var timePublisher: Publishers.Autoconnect<Timer.TimerPublisher>
@@ -18,14 +18,6 @@ struct ClockEngine {
         let hour = calendar.component(.hour, from: Date())
         currentHour = Time(hour: hour)
         timePublisher = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
-    }
-    
-    struct Timeline {
-        var rotation: Float = 0
-        var angle: Float
-        var color: String
-        var startPoint: Float
-        var endpoint: Float
     }
 }
 

@@ -8,32 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @StateObject var engine: OqloqEngine = OqloqEngine()
-    
+        
     var body: some View {
         ZStack {
             wall
                 .ignoresSafeArea()
-//            Clock(rotation: engine.currentHour)
-            Clock()
+            ClockView()
         }
-        .onAppear {
-//            let calendar = Calendar.current
-//            let hour = calendar.component(.hour, from: Date())
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(Animation.interactiveSpring(response: 1, dampingFraction: 1.5, blendDuration: 0)) {
-//                    self.currentTime = Time(hour: hour)
-                }
-            }
-        }
-        .onReceive(engine.timePublisher) { _ in
-            withAnimation(.linear(duration: 1)) {
-                
-            }
-        }
-        .environmentObject(engine)
     }
     
     let wall: some View = ZStack {
