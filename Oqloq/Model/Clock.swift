@@ -17,7 +17,7 @@ struct Clock {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: Date())
         currentHour = Time(hour: hour)
-        timePublisher = Timer.publish(every: 3600, on: .main, in: .common).autoconnect()
+        timePublisher = Timer.publish(every: 3600, on: .main, in: .common).autoconnect() //publishes every 3600 seconds ie. 1 hour
     }
 }
 

@@ -12,8 +12,8 @@ class OqloqEngine: ObservableObject {
         
     @Published private var model: Clock = Clock()
     
-    var currentHour: Time {
-        model.currentHour
+    var currentHour: Int {
+        model.currentHour.hour
     }
     
     var timePublisher: Publishers.Autoconnect<Timer.TimerPublisher> {
